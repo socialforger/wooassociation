@@ -13,8 +13,14 @@ require_once WA_DIR . 'includes/class-wooassociation-api.php';
 
 class Plugin {
 
+    /**
+     * Singleton instance
+     */
     private static $instance = null;
 
+    /**
+     * Get instance
+     */
     public static function instance() {
         if ( null === self::$instance ) {
             self::$instance = new self();
@@ -22,20 +28,33 @@ class Plugin {
         return self::$instance;
     }
 
+    /**
+     * Constructor
+     */
     private function __construct() {
         $this->load_textdomain();
-
-        new Admin();
-        new Profile();
-        new Membership();
-        new Checkout();
+        $this->init_modules();
     }
 
+    /**
+     * Load translations
+     */
     private function load_textdomain() {
         load_plugin_textdomain(
             'wooassociation',
             false,
             dirname( plugin_basename( WA_DIR . 'wooassociation.php' ) ) . '/languages'
         );
+    }
+
+    /**
+     * Initialize all plugin modules
+     */
+    private function init_modules() {
+        new Admin();        // Impostazioni admin
+        new Profile();      // Campi profilo utente
+        new Membership();   // Logica adesione e rinnovo
+        new Checkout();     // Controlli checkout
+        // API è statica, non serve istanziarla
     }
 }
