@@ -1,2 +1,2 @@
-# wooassociation
-Association management for Woocommerce
+# WooAssociation
+Gestione adesione ad associazione, con quota automatica e rinnovo annuale, tramite WooCommerce.
